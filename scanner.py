@@ -1,0 +1,5 @@
+print("================================")
+print("CRYPTO DISCORD SCANNER")
+print("================================")
+print("Scanner started successfully!")
+print("Next: connect market data")
