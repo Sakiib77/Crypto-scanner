@@ -1,0 +1,32 @@
+name: 4H SFP Liquidity Sweep Scanner
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: sfp-4h-scanner
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install requests websocket-client
+
+      - name: Start 4H SFP Scanner
+        env:
+          SFP_4H_DISCORD_WEBHOOK_URL: ${{ secrets.SFP_4H_DISCORD_WEBHOOK_URL }}
+        run: |
+          python sfp_4h.py
